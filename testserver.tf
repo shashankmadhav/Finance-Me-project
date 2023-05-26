@@ -122,7 +122,7 @@ resource "aws_security_group" "ass-sg" {
 # Network interface setup
 resource "aws_network_interface" "ass-ni" {
   subnet_id       = aws_subnet.ass-subnet.id
-  private_ips     = ["10.0.1.10"]
+  private_ips     = ["10.0.1.11"]
   security_groups = [aws_security_group.ass-sg.id]
 }
 
@@ -131,13 +131,13 @@ resource "aws_network_interface" "ass-ni" {
 resource "aws_eip" "ass-eip" {
   vpc                       = true
   network_interface         = aws_network_interface.ass-ni.id
-  associate_with_private_ip = "10.0.1.10"
+  associate_with_private_ip = "10.0.1.11"
 }
 
 
 
 # Ec2 Instance Test server setup and attaching the network interface to it
-resource "aws_instance" "ass-instance1" {
+resource "aws_instance" "ass-instance" {
   ami           = "ami-02eb7a4783e7e9317" # ap-south-1
   instance_type = "t2.micro"
   availability_zone = "ap-south-1a"
@@ -157,4 +157,4 @@ resource "aws_instance" "ass-instance1" {
 }
 
 
-
+ 
