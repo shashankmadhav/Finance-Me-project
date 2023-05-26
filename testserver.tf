@@ -148,11 +148,12 @@ resource "aws_instance" "ass-instance" {
     device_index         = 0
   }
 
-  
 
  tags = {
        Name = "Test-Server"
  }
+
+}
 
 # Ec2 Instance Prod server setup and attaching the network interface to it
 resource "aws_instance" "ass-instance" {
