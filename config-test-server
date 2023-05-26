@@ -1,0 +1,19 @@
+---
+- name: This Playbook to deploy our image on testserver
+  hosts: testserver
+  become: true
+  tasks:
+  - name: To update the packages
+    command: sudo apt-get update
+
+  - name: To install docker
+    command: sudo apt install docker.io -y
+
+  - name: To start docker service
+    command: sudo systemctl start docker
+
+  - name: To stop and remove existing/running finance-me container
+    command: sudo docker rm -f finance-me
+
+  - name: To deploy our image on testserver
+    command: sudo docker run -itd -p 9002:9002 --name finance-me pavankasiboina/finance-me:3.0
