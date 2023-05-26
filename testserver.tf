@@ -137,7 +137,7 @@ resource "aws_eip" "ass-eip" {
 
 
 # Ec2 Instance Test server setup and attaching the network interface to it
-resource "aws_instance" "ass-instance" {
+resource "aws_instance" "ass-instance1" {
   ami           = "ami-02eb7a4783e7e9317" # ap-south-1
   instance_type = "t2.micro"
   availability_zone = "ap-south-1a"
@@ -156,7 +156,7 @@ resource "aws_instance" "ass-instance" {
 }
 
 # Ec2 Instance Prod server setup and attaching the network interface to it
-resource "aws_instance" "ass-instance" {
+resource "aws_instance" "ass-instance2" {
   ami           = "ami-02eb7a4783e7e9317" # ap-south-1
   instance_type = "t2.micro"
   availability_zone = "ap-south-1a"
