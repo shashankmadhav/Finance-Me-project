@@ -136,7 +136,7 @@ resource "aws_eip" "ass-eip" {
 
 
 
-# Ec2 Instance setup and attaching the network interface to it
+# Ec2 Instance Test server setup and attaching the network interface to it
 resource "aws_instance" "ass-instance" {
   ami           = "ami-02eb7a4783e7e9317" # ap-south-1
   instance_type = "t2.micro"
@@ -153,5 +153,25 @@ resource "aws_instance" "ass-instance" {
  tags = {
        Name = "Test-Server"
  }
+
+# Ec2 Instance Prod server setup and attaching the network interface to it
+resource "aws_instance" "ass-instance" {
+  ami           = "ami-02eb7a4783e7e9317" # ap-south-1
+  instance_type = "t2.micro"
+  availability_zone = "ap-south-1a"
+  key_name = "DevOps-key"
+
+  network_interface {
+    network_interface_id = aws_network_interface.ass-ni.id
+    device_index         = 0
+  }
+
+  
+
+ tags = {
+       Name = "Prod-Server"
+ }
+
+
 }
 
