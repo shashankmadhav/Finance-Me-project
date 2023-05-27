@@ -1,0 +1,28 @@
+node{
+    
+    stage('git checkout'){
+        git 'https://github.com/pavankasiboina/selenium-finance-me.git'
+    }
+
+    stage('Code Build'){
+        sh 'mvn clean test'
+    }
+
+    stage('To run Finance-Me runnable jar'){
+        sh 'java -jar finance-me-runnable.jar'
+    }
+
+    stage('Provisioning Production-Server using tf'){
+        
+        withCredentials([[
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'aws-creden',
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+        sh 'terraform init'
+        sh 'terraform validate'
+        sh 'terraform plan'
+        sh 'terraform apply --auto-approve'
+        }
+    }
+}

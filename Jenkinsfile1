@@ -1,0 +1,40 @@
+node{
+
+    stage('Code CheckOut'){
+        git 'https://github.com/pavankasiboina/Finance-Me-project.git'
+    }
+    
+    stage('Code Build'){
+        sh 'mvn clean package'
+    }
+    stage('Building Docker Image'){
+        sh 'docker build -t pavankasiboina/finance-me:3.0 .'
+    }
+
+    stage('Pushing image to DockerHub'){
+        withCredentials([string(credentialsId: 'docker-hub-passwd', variable: 'dockercred')]) {
+        
+        sh "docker login -u pavankasiboina -p ${dockercred}"
+        sh 'docker push pavankasiboina/finance-me:3.0'
+        }
+    }
+    stage('Provisioning Test-Server using tf'){
+        
+        withCredentials([[
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'aws-creden',
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+        sh 'terraform init'
+        sh 'terraform validate'
+        sh 'terraform plan'
+        sh 'terraform apply --auto-approve'
+        }
+    }
+    
+    stage('configuring test server & deploy our finance-me app'){
+        ansiblePlaybook become: true, credentialsId: 'ssh-keys-ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'hosts', playbook: 'config-test-server'
+    }
+     
+    
+}
