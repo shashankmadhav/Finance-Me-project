@@ -17,3 +17,20 @@
 
   - name: To deploy our image on testserver
     command: sudo docker run -itd -p 9002:9002 --name finance-me pavankasiboina/finance-me:3.0
+
+  - name: To install cadvisor
+    command:  sudo docker container run -itd --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker:/var/lib/docker:ro --publish=8080:8080 --detach=true --privileged=true --name=cadvisor gcr.io/cadvisor/cadvisor:latest
+
+
+
+  - name: To install node exporter on Test-server
+    shell:
+      sudo apt-get update
+      wget https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
+      tar -xvf node_exporter-1.6.0.linux-amd64.tar.gz
+      mv node_exporter-1.6.0.linux-amd64 node-exporter
+      cd node-exporter
+      ./node_exporter
+
+
+
