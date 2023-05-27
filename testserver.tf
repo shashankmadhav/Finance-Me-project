@@ -126,8 +126,8 @@ resource "aws_security_group" "ass-sg" {
   #for node-exporter
   ingress {
     description      = "Custom Port"
-    from_port        = 9001
-    to_port          = 9001
+    from_port        = 9100
+    to_port          = 9100
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
