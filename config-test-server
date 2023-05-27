@@ -30,4 +30,4 @@
     command: tar -xvf node_exporter-1.6.0.linux-amd64.tar.gz
     command: mv node_exporter-1.6.0.linux-amd64 node-exporter
     command: cd node-exporter
-    command: ./node_exporter
+    
