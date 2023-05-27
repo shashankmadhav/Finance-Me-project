@@ -102,6 +102,7 @@ resource "aws_security_group" "ass-sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
+  # for our application port
   ingress {
     description      = "Custom Port"
     from_port        = 9002
@@ -111,10 +112,22 @@ resource "aws_security_group" "ass-sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
+
+  #for cadvisor
   ingress {
     description      = "Custom Port"
     from_port        = 8080
     to_port          = 8080
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  #for node-exporter
+  ingress {
+    description      = "Custom Port"
+    from_port        = 9001
+    to_port          = 9001
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
