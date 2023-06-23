@@ -44,24 +44,6 @@ node{
         sh "${dockerCMD} push shashankmadhav/finance-me:${tagName}"
             
         }
-    }
-    stage('Provisioning Test-Server using tf'){
-        
-        withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'aws-creden',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
-        sh 'terraform init'
-        sh 'terraform validate'
-        sh 'terraform plan'
-        sh 'terraform apply --auto-approve'
-        }
-    }
-    
-    stage('configuring test server & deploy our finance-me app'){
-        ansiblePlaybook become: true, credentialsId: 'ssh-keys-ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'hosts', playbook: 'config-test-server'
-    }
      
     
 }
