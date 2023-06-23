@@ -1,7 +1,7 @@
 node{
 
     stage('git check-out'){
-        git 'https://github.com/pavankasiboina/Finance-Me-project.git'
+        git 'https://github.com/shashankmadhav/Finance-Me-project.git'
     }
     
     stage('Code Build'){
