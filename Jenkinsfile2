@@ -1,7 +1,7 @@
 node{
     
     stage('git checkout'){
-        git 'https://github.com/pavankasiboina/selenium-finance-me.git'
+        git 'https://github.com/shashankmadhav/selenium-finance-me.git'
     }
 
     stage('Code Build'){
