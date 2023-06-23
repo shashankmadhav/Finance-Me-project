@@ -1,21 +1,21 @@
 node{
 
     stage('Code CheckOut'){
-        git 'https://github.com/pavankasiboina/Finance-Me-project.git'
+        git 'https://github.com/shashankmadhav/Finance-Me-project.git'
     }
     
     stage('Code Build'){
         sh 'mvn clean package'
     }
     stage('Building Docker Image'){
-        sh 'docker build -t pavankasiboina/finance-me:3.0 .'
+        sh 'docker build -t shashankmadhav/finance-me:3.0 .'
     }
 
     stage('Pushing image to DockerHub'){
         withCredentials([string(credentialsId: 'docker-hub-passwd', variable: 'dockercred')]) {
         
-        sh "docker login -u pavankasiboina -p ${dockercred}"
-        sh 'docker push pavankasiboina/finance-me:3.0'
+        sh "docker login -u shashankmadhav -p ${dockercred}"
+        sh 'docker push shashankmadhav/finance-me:3.0'
         }
     }
     stage('Provisioning Test-Server using tf'){
