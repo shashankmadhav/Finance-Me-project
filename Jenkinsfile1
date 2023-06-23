@@ -29,7 +29,9 @@ node{
     stage('Code Build'){
         sh 'mvn clean package'
     }
-    
+     stage("Image Prune"){
+         sh "docker image prune -a -f"
+    }
     stage('Containerize the application'){
         echo 'Creating Docker image'
         sh "${dockerCMD} build -t shashankmadhav/finance-me:${tagName} ."
