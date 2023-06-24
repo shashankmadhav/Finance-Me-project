@@ -42,7 +42,7 @@ node{
         withCredentials([string(credentialsId: 'dockerhubpassword', variable: 'dockerhubpassword')]) {
         sh "${dockerCMD} login -u shashankmadhav -p ${dockerHubPassword}"
         sh "${dockerCMD} push shashankmadhav/finance-me:${tagName}"
-            
+        echo "Image push complete"    
         }
      
     
