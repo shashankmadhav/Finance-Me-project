@@ -1,5 +1,4 @@
-[testserver]
-13.200.85.212
-
-[prodserver]
-3.7.22.26
+[webservers]
+13.233.75.28
+[webservers:vars]
+ansible_ssh_user="ubuntu"
