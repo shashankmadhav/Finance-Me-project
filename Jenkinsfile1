@@ -44,7 +44,8 @@ node{
         sh "${dockerCMD} push shashankmadhav/finance-me:${tagName}"
         echo "Image push complete"    
         }
-     
-    
+    stage('Run On Test Server') {
+    ansiblePlaybook become: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'test-server-playbook.yml' 
+  }  
 }
 }
